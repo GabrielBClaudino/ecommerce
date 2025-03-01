@@ -1,44 +1,44 @@
-#### 📦 E-commerce Project
-### 📌 Descrição
+# 📦 E-commerce Project
+## 📌 Descrição
 Este projeto é um sistema de e-commerce desenvolvido com Node.js e MongoDB, contendo uma API REST e suporte a GraphQL.
 
-### 📂 Entidades
+## 📂 Entidades
 
-## 🏷️ Categoria `category.js`
+### 🏷️ Categoria `category.js`
 - Atributos: name, description
 - Descrição: Representa as categorias dos produtos vendidos no e-commerce.
 - Relacionamento: Uma categoria pode conter vários produtos.
 
-## 🎟️ Cupom `cupon.js`
+### 🎟️ Cupom `cupon.js`
 - Atributos: code, discount, expiration, order
 - Descrição: Cupons de desconto aplicáveis a pedidos.
 - Relacionamento: Um cupom pode estar associado a vários pedidos, e um pedido pode conter vários cupons.
 
-## 📦 Pedido `order.js`
+### 📦 Pedido `order.js`
 - Atributos: totalAmount, created_at, cupon
 - Descrição: Representa uma compra realizada por um usuário.
 - Relacionamento: Um pedido pode conter vários cupons de desconto.
 
-## 🛒 Produto `product.js`
+### 🛒 Produto `product.js`
 - Atributos: name, src, storage, category
 - Descrição: Produtos disponíveis para venda no e-commerce.
 - Relacionamento: Um produto pertence a uma única categoria.
 
-## 👤 Usuário `user.js`
+### 👤 Usuário `user.js`
 - Atributos: name, email, password, created_at, profile
 - Descrição: Representa os clientes que utilizam a plataforma.
 - Relacionamento: Cada usuário tem um único perfil associado.
 
-## 🏠 Perfil de Usuário `userProfile.js`
+### 🏠 Perfil de Usuário `userProfile.js`
 - Atributos: phone, address, user
 - Descrição: Informações adicionais sobre o usuário.
 - Relacionamento: Um perfil pertence a um único usuário.
 
-### ⚙️ Funcionalidades
+## ⚙️ Funcionalidades
 ✔️ CRUD e autenticação de usuários
 ✔️ CRUD de categorias, cupons, pedidos, produtos e perfis de usuários
 
-### 🚀 Tecnologias Utilizadas
+## 🚀 Tecnologias Utilizadas
 - Node.js
 - Express
 - MongoDB + Mongoose
