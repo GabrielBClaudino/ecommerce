@@ -35,8 +35,8 @@ Este projeto é um sistema de e-commerce desenvolvido com Node.js e MongoDB, con
 - Relacionamento: Um perfil pertence a um único usuário.
 
 ## ⚙️ Funcionalidades
-✔️ CRUD e autenticação de usuários
-✔️ CRUD de categorias, cupons, pedidos, produtos e perfis de usuários
+- ✔️ CRUD e autenticação de usuários
+- ✔️ CRUD de categorias, cupons, pedidos, produtos e perfis de usuários
 
 ## 🚀 Tecnologias Utilizadas
 - Node.js
