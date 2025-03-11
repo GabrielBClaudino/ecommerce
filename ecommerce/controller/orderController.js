@@ -8,50 +8,73 @@ const createOrder = async (req, res) => {
         cupon: cuponId,
     });
 
-    await newOrder.save();
-
-    await cupon.updateMany(
-        { _id: cuponId }, // Encontra o cupom pelo ID
-        { order: newOrder._id } // associa o pedido ao cupom
-    )
-
-    res.json({
-        message: "Pedido criado com sucesso!",
-        order: newOrder,
-    });
+    try {
+        await newOrder.save();
+    
+        await cupon.updateMany(
+            { _id: cuponId }, // Encontra o cupom pelo ID
+            { order: newOrder._id } // associa o pedido ao cupom
+        )
+    
+        res.status(201).json({
+            message: "Pedido criado com sucesso!",
+            order: newOrder,
+        });
+        
+    } catch (error) {
+        res.status(500).json({ error: 'Erro interno, tente novamente' });
+    }
 }
 
 const getAllOrders = async (req, res) => {
-    const orders = await order.find().populate("cupon");
-    res.json(orders);
+    try {
+        const orders = await order.find().populate("cupon");
+        res.status(200).json(orders);
+        
+    } catch (error) {
+        res.status(500).json({ error: 'Erro interno, tente novamente' });
+    }
 }
 
 const getOrderById = async (req, res) => {
-    const { id } = req.params;
-    const orderId = await order.findById(id).populate("cupon");
-    res.json(orderId);
+    try {
+        const { id } = req.params;
+        const orderId = await order.findById(id).populate("cupon");
+        res.status(200).json(orderId);
+        
+    } catch (error) {
+        res.status(500).json({ error: 'Erro interno, tente novamente' });
+    }
 }
 
 const deleteOrder = async (req, res) => {
     const { id } = req.params;
-
-    const orderDelete = await order.findById(id);
-
-    await order.deleteOne({ _id: id });
-
-    res.json({ message: "Pedido removido com sucesso!" });
+    try {
+        const orderDelete = await order.findById(id);
+    
+        await order.deleteOne({ _id: id });
+    
+        res.status(200).json({ message: "Pedido removido com sucesso!" });
+        
+    } catch (error) {
+        res.status(500).json({ error: 'Erro interno, tente novamente' });
+    }
 }
 
 const editOrder = async (req, res) => {
     const { id } = req.params;
     const { totalAmount } = req.body;
+    try {
+        let order = await order.findByIdAndUpdate(id, { totalAmount });
     
-    let order = await order.findByIdAndUpdate(id, { totalAmount });
-
-    res.json({
-        message: "Pedido atualizado com sucesso!",
-        order,
-    });
+        res.status(200).json({
+            message: "Pedido atualizado com sucesso!",
+            order,
+        });
+        
+    } catch (error) {
+        res.status(500).json({ error: 'Erro interno, tente novamente' });
+    }
 }
 
 module.exports = { getAllOrders, createOrder, editOrder, deleteOrder, getOrderById };

@@ -9,50 +9,72 @@ const createUserProfile = async (req, res) => {
         address,
         user: userId,
     });
-
-    await newUserProfile.save();
-
-    await User.updateOne(
-        { _id: userId }, // Encontra o usuário pelo ID
-        { profile: newUserProfile._id } // associa o perfil de usuário ao usuário
-    )
-    res.json({
-        message: "Perfil de usuário criado com sucesso!",
-        userProfile: newUserProfile,
-    });
+    try {
+        await newUserProfile.save();
+    
+        await User.updateOne(
+            { _id: userId }, // Encontra o usuário pelo ID
+            { profile: newUserProfile._id } // associa o perfil de usuário ao usuário
+        )
+        res.status(201).json({
+            message: "Perfil de usuário criado com sucesso!",
+            userProfile: newUserProfile,
+        });
+    
+    } catch (error) {
+      res.status(500).json({ error: 'Erro interno, tente novamente' });
+    }
 };
 
 const getAllUserProfiles = async (req, res) => {
-    const userProfiles = await userProfile.find().populate("user");
-    res.json(userProfiles);
+    try {
+        const userProfiles = await userProfile.find().populate("user");
+        res.status(200).json(userProfiles);
+    
+    } catch (error) {
+      res.status(500).json({ error: 'Erro interno, tente novamente' });
+    }
 }
 
 const getUserProfileById = async (req, res) => {
     const { id } = req.params;
-    const userProfileId = await userProfile.findById(id).populate("user");
-    res.json(userProfileId);
+    try {
+        const userProfileId = await userProfile.findById(id).populate("user");
+        res.status(200).json(userProfileId);
+    
+    } catch (error) {
+      res.status(500).json({ error: 'Erro interno, tente novamente' });
+    }
 }
 
 const deleteUserProfile = async (req, res) => {
     const { id } = req.params;
-
-    const userProfileDelete = await userProfile.findById(id);
-
-    await userProfile.deleteOne({ _id: id });
+    try {
+        const userProfileDelete = await userProfile.findById(id);
     
-    res.json({ message: "Perfil de usuário removido com sucesso!" });
+        await userProfile.deleteOne({ _id: id });
+        
+        res.status(200).json({ message: "Perfil de usuário removido com sucesso!" });
+    
+    } catch (error) {
+      res.status(500).json({ error: 'Erro interno, tente novamente' });
+    }
 }
 
 const editUserProfile = async (req, res) => {
     const { id } = req.params;
     const { phone, address } = req.body;
-
-    let userProfile = await userProfile.findByIdAndUpdate(id, { phone, address });
-
-    res.json({
-        message: "Perfil de usuário atualizado com sucesso!",
-        userProfile,
-    });
+    try {
+        let userProfile = await userProfile.findByIdAndUpdate(id, { phone, address });
+    
+        res.status(200).json({
+            message: "Perfil de usuário atualizado com sucesso!",
+            userProfile,
+        });
+    
+    } catch (error) {
+      res.status(500).json({ error: 'Erro interno, tente novamente' });
+    }
 }
 
 module.exports = { getAllUserProfiles, createUserProfile, editUserProfile, deleteUserProfile, getUserProfileById };

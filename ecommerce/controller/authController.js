@@ -12,7 +12,7 @@ const register = async (req, res) => {
         await user.save();
         res.status(201).json(user);
     } catch (error) {
-        res.status(500).json({ error: 'Erro ao registrar usuário' });
+        res.status(500).json({ error: 'Erro interno, tente novamente' });
     }
 };
 
@@ -28,7 +28,7 @@ const login = async (req, res) => {
 
             // Gerar o token JWT
             const token = jwt.sign({ email }, secret, { expiresIn: '30d' });
-            res.json({ user, token });
+            res.status(200).json({ user, token });
         });
     } catch (error) {
         res.status(500).json({ error: 'Erro interno, tente novamente' });
@@ -36,34 +36,54 @@ const login = async (req, res) => {
 };
 
 const getAllUsers = async (req, res) => {
-    const users = await User.find().populate("profile");
-    res.json(users);
+    try {
+        const users = await User.find().populate("profile");
+        res.status(200).json(users);
+        
+    } catch (error) {
+        res.status(500).json({ error: 'Erro interno, tente novamente' });
+    }
 };
 
 const deleteUser = async (req, res) => {
     const { id } = req.params;
-
-    await User.findByIdAndDelete(id);
-
-    res.json({ message: "Usuário removido com sucesso!" });
+    
+    try {
+        await User.findByIdAndDelete(id);
+    
+        res.status(200).json({ message: "Usuário removido com sucesso!" });
+        
+    } catch (error) {
+        res.status(500).json({ error: 'Erro interno, tente novamente' });
+    }
 }
 
 const editUser = async (req, res) => {
     const { id } = req.params;
     const { name, email, password } = req.body;
 
-    let user = await User
-.findByIdAndUpdate(id, { name, email, password });
-
-    res.json({
-        message: "Usuário atualizado com sucesso!",
-        user,
-    });
+    try {
+        let user = await User
+    .findByIdAndUpdate(id, { name, email, password });
+    
+        res.status(200).json({
+            message: "Usuário atualizado com sucesso!",
+            user,
+        });
+        
+    } catch (error) {
+        res.status(500).json({ error: 'Erro interno, tente novamente' });
+    }
 }
 const getUser = async (req, res) => {  
     const { id } = req.params;  
-    const user = await User.findById(id).populate("profile");
-    res.json(user);
+    try {
+        const user = await User.findById(id).populate("profile");
+        res.status(200).json(user);
+        
+    } catch (error) {
+        res.status(500).json({ error: 'Erro interno, tente novamente' });
+    }
 }
 
 module.exports = {
