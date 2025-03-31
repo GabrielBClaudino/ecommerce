@@ -1,6 +1,7 @@
 # 📦 E-commerce Project
 ## 📌 Descrição
-Este projeto é um sistema de e-commerce desenvolvido com Node.js e MongoDB, contendo uma API REST e uma API GraphQL Simplificada.
+Este projeto é um sistema de e-commerce desenvolvido em duas partes onde,
+a Primeira parte é com Node.js e MongoDB, contendo uma API REST, junto com o seu front-end feito com react-native, expo e axios, e a Segunda é uma API GraphQL Simplificada com MongoDB e seu front-end feitocom react-native, expo e apollo server.
 
 ## 📂 Entidades
 
