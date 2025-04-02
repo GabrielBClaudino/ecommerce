@@ -1,11 +1,11 @@
-import { useCart } from './CartContext';
+import { useCart } from '../CartContext';
 import { AntDesign } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useEffect, useState } from "react";
 import httpService from '../services/httpService';
 import React from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { StyleSheet, Text, TouchableOpacity, View, Image, FlatList, Dimensions } from 'react-native';
-
 const { width } = Dimensions.get('window');
 
 interface Product {
@@ -22,7 +22,8 @@ export default function HomeScreen() {
 
   async function getProducts() {
     try {
-      const ProductResponse = await httpService.get(`${SERVER_URL}/api/products`);
+      const token = await AsyncStorage.getItem("authToken");
+      const ProductResponse = await httpService.get(`${SERVER_URL}/api/products`, token);
       setProducts(ProductResponse);
       console.log(ProductResponse);
     } catch (error) {

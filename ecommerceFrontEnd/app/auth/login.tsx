@@ -4,8 +4,11 @@ import {MaterialIcons, FontAwesome6, AntDesign} from '@expo/vector-icons';
 import { themas } from "@/global/themes";
 import { Button } from "@/components/Button";
 import { Link, router } from "expo-router";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
+import httpService from '../services/httpService'
 export default function Login (){
+    const SERVER_URL = 'http://192.168.0.100:3000'
 
     const [email,setEmail] = useState({value: '',dirty: false});
     const [password,setPassword] = useState({value: '',dirty: false});
@@ -27,7 +30,7 @@ export default function Login (){
             return <Text style={style.error}></Text> 
         }
     }
-    const handleErrorForm = () => {
+    const handleErrorForm = async () => {
         let hasError = false;
         if(!password.value) {
           setPassword({value: password.value, dirty: true})
@@ -45,7 +48,15 @@ export default function Login (){
         }
     
         if(!hasError) {
-            router.replace('/(tabs)')
+            try {
+                const response = await httpService.post(`${SERVER_URL}/api/login`, {email: email.value, password: password.value})
+                const token = response.token;
+                AsyncStorage.setItem("authToken", token);
+                router.replace('/(tabs)')
+                console.log(response.token);    
+            } catch (error) {
+                Alert.alert('Erro', 'E-mail ou senha inválidos');
+            }
         }
       } 
     

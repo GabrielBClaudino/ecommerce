@@ -5,7 +5,7 @@ const WithAuth = require('../middleware/auth.js');
 
 router.get("/orders", orderController.getAllOrders);
 router.get("/order/:id", orderController.getOrderById);
-router.post("/order", orderController.createOrder);
+router.post("/order",WithAuth, orderController.createOrder);
 router.delete("/order/:id", orderController.deleteOrder);
 router.put("/order/:id", orderController.editOrder);
 

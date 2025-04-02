@@ -7,12 +7,12 @@ const categoryRoutes = require("./routes/categoryRoute.js");
 const userProfileRoutes = require("./routes/userProfileRoute.js");
 const orderRoutes = require("./routes/orderRoute.js");
 const cuponRoutes = require("./routes/cuponRoute.js");
-
+const cors = require('cors');
 const db = require("./db/db.js");
 
 const app = express();
 app.use(bodyParser.json()); // Para ler o corpo das requisições como JSON
-
+app.use(cors());
 app.use("/api", productRoutes);
 app.use("/api", loginRouter);
 app.use("/api", categoryRoutes);
