@@ -11,7 +11,7 @@ export default function CartScreen() {
     try {
       console.log("-----------------Finalizando Compra-----------------");
       const token = await AsyncStorage.getItem("authToken");
-      
+      const userId = await AsyncStorage.getItem("userId");
       const products = cart.map(product => ({
         productId: product._id, 
         name: product.name,
@@ -19,7 +19,8 @@ export default function CartScreen() {
       }));
       
   
-      const orderData = { products }; 
+      const orderData = {
+        userId: userId, products: products}
       console.log(orderData);
       
       await httpService.post(`${SERVER_URL}/api/order`, orderData, token);

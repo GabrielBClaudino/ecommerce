@@ -24,7 +24,7 @@ export default function ProductScreen (){
         const result = await httpService.post(`${SERVER_URL}/api/product`, json)
         console.log(result)
         Alert.alert('Sucesso', 'Produto registrado com sucesso!');
-        router.replace('/(tabs)');
+        router.replace('/auth/login');
     }
     
 

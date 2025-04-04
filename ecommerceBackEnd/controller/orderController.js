@@ -4,11 +4,12 @@ const Cupon = require('../model/cupon.js');
 const createOrder = async (req, res) => {
     try {
         
-        const { products, cuponId } = req.body;
+        const { products, cuponId, userId } = req.body;
 
         const totalAmount = products.reduce((sum, product) => sum + product.price, 0);
 
         const newOrder = new Order({
+            userId: userId,
             products,
             totalAmount,
             cupon: cuponId,

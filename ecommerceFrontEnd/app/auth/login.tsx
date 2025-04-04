@@ -51,8 +51,10 @@ export default function Login (){
             try {
                 const response = await httpService.post(`${SERVER_URL}/api/login`, {email: email.value, password: password.value})
                 const token = response.token;
+                AsyncStorage.setItem("userId", response.user._id);
                 AsyncStorage.setItem("authToken", token);
                 router.replace('/(tabs)')
+                console.log(response.user._id)
                 console.log(response.token);    
             } catch (error) {
                 Alert.alert('Erro', 'E-mail ou senha inválidos');
@@ -65,7 +67,7 @@ export default function Login (){
     return(
         <View style={style.container}>
             <View style={style.boxTop}>
-                <AntDesign name="user" onPress={() => router.replace('/product')} style={style.logo}></AntDesign>
+                <AntDesign name="user" style={style.logo}></AntDesign>
                 <Text style={style.text}>E-Commerce IA</Text>
                 <Text style={style.subtitle}>Entre Agora!</Text>
                 

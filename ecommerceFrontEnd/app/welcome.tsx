@@ -19,6 +19,7 @@ const welcome = () => {
         </View>
         <TouchableOpacity style={styles.loginButton} onPress={() => router.push('/auth/login')}><Text style={{color: '#FFF'}} >Login</Text></TouchableOpacity>
         <TouchableOpacity style={styles.registerButton} onPress={() => router.push('/auth/register')}><Text style={{color: '#878af6'}} >Registrar</Text></TouchableOpacity>
+        <TouchableOpacity style={styles.CadastrarButton} onPress={() => router.push('/product')}><Text style={{color: '#FFF'}} >Cadastrar Produto</Text></TouchableOpacity>
     
     </View>   
 
@@ -58,6 +59,16 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         justifyContent: 'center',
         alignItems: 'center',
+    },
+    CadastrarButton: {
+        width: '100%',
+        height: 50,
+        marginBottom: 10,
+        backgroundColor: '#878af6',
+        borderRadius: 10,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop:10,
     },
     registerButton: {
         width: '100%',
